@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Roulette
+  m_EditorClassIdentifier: 
+  m_GroupName: Roulette
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 5ad5d715f194f4b0ab693c91c2caec30
+  m_SerializeEntries:
+  - m_GUID: b2cd83b1885cd496db894f9e070cb3b0
+    m_Address: Roulette_Canvas
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 030825eaa83884a6fb1842093be9a011, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 0484a7f4e1abf4ad780860d938c37733, type: 2}
+    - {fileID: 11400000, guid: f1342bc0cc5aa48428e4ac531f7df6d9, type: 2}
+    - {fileID: 11400000, guid: 11a61e7ab687c4214aea164b34b45d77, type: 2}
