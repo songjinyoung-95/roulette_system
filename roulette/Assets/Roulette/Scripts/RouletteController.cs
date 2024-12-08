@@ -9,7 +9,6 @@ namespace RouletteSystem
 {
     public class RouletteController
     {
-        private AssetReference _ref;
         private RouletteData _data;
         private RouletteView _view;
 
@@ -54,15 +53,22 @@ namespace RouletteSystem
                 }
 
                 _view = component;
+
                 _view.Init();
                 _view.Show(_data.SlotDatas);
+
+                _view.OnItemSelected += SelectedRouletteItem;
             };
         }
 
-
-        private void ApplyRewardSlot()
+        private void SelectedRouletteItem(SlotData slot)
         {
-            
+            // TODO : 타입에 맞는 아이템을 ItemCount만큼 데이터로 저장하는 로직 추가
+
+            ESlotItem   itemType    = slot.ItemType;
+            int         itemCount   = slot.ItemCount;
+
+            Debug.Log($"{itemType}의 아이템을 {itemCount}개 획득");
         }
     }
 }

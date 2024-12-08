@@ -21,7 +21,7 @@ namespace RouletteSystem
             SlotIndex       = index;
 
             _img.sprite     = data.Sprite;
-            _count_TMP.text = $"x{data.Count}";
+            _count_TMP.text = $"x{data.ItemCount}";
         }
     } 
 }

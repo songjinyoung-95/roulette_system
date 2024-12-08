@@ -29,6 +29,9 @@ namespace RouletteSystem
 
         private void Init()
         {
+            /// TODO : 룰렛 보상 개발 방향성에 따라 룰렛데이터 초기화 방식 설정
+
+            /// ex) 스크립터블 데이터를 사용하여 각각의 룰렛 보상을 만들어둔 후 필요한 아이템에 따라 로드 후 사용            
             _slotDatas = new Dictionary<ESlotItem, SlotData>()
             {
                 {ESlotItem.Item_1, Resources.Load<SlotData>("Item_1")},

@@ -8,6 +8,9 @@ namespace RouletteSystem
 {
     public class RouletteView : MonoBehaviour
     {
+        public delegate void SelectedRouletteItemEventHandler(SlotData slot);
+        public event SelectedRouletteItemEventHandler OnItemSelected;
+
         /// <summary>
         /// property
         /// </summary>        
@@ -47,9 +50,6 @@ namespace RouletteSystem
         private RouletteSlot _selectSlot;
 
 
-
-        private int accumulatedWeight;
-
         public void Init()
         {
             _rewardView.Init(()=>
@@ -79,12 +79,16 @@ namespace RouletteSystem
             _parent.SetActive(true);
         }
 
-        public void Spin()
+
+
+
+        private void Spin()
         {
             if(_isSpinning)
                 return;
 
             _selectSlot = GetRandomSlot();
+            OnItemSelected?.Invoke(_selectSlot.SlotData);
 
             float angle = _angle * _selectSlot.SlotIndex;
 
@@ -119,7 +123,7 @@ namespace RouletteSystem
                 _rouletteSpiner.rotation = Quaternion.Euler(0, 0, end);
                 SlotData selectedSlot = _selectSlot.SlotData;
                 
-                _rewardView.ShowRewardSlotView(selectedSlot.Sprite, selectedSlot.Count);
+                _rewardView.ShowRewardSlotView(selectedSlot.Sprite, selectedSlot.ItemCount);
             }
         }
 
