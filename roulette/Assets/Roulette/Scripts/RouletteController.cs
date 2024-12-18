@@ -58,8 +58,50 @@ namespace RouletteSystem
                 _view.Show(_data.SlotDatas);
 
                 _view.OnItemSelected += SelectedRouletteItem;
+                _view.OnSelectedSlot += GetRandomSlot;
             };
         }
+
+
+        private RouletteSlot GetRandomSlot()
+        {
+            float[] slotWeights = new float[_view.SlotSize];
+
+            for (int i = 0; i < slotWeights.Length; i++)
+                slotWeights[i] = _view.Slots[i].SlotData.Chance;
+
+            int randomWeight = Choose(slotWeights);
+
+            Debug.Log($"슬롯 인덱스 : {randomWeight} \n 슬롯 아이템 : {_view.Slots[randomWeight].SlotData.ItemName}");
+            
+            return _view.Slots[randomWeight];
+        }
+
+        private int Choose(float[] probs)
+        {
+            float total = 0;
+
+            foreach (float elem in probs)
+                total += elem;
+
+            float randomPoint = Random.value * total;
+
+            for (int i = 0; i < probs.Length; i++)
+            {
+                if (randomPoint < probs[i])
+                {
+                    return i;
+                }
+                else
+                {
+                    randomPoint -= probs[i];
+                }
+            }
+
+            return probs.Length - 1;
+        }
+
+
 
         private void SelectedRouletteItem(SlotData slot)
         {
@@ -68,7 +110,7 @@ namespace RouletteSystem
             ESlotItem   itemType    = slot.ItemType;
             int         itemCount   = slot.ItemCount;
 
-            Debug.Log($"{itemType}의 아이템을 {itemCount}개 획득");
+            Debug.Log($"{slot.ItemName} 아이템 획득");
         }
     }
 }

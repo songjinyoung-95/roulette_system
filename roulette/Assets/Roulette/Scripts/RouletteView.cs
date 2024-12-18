@@ -9,7 +9,11 @@ namespace RouletteSystem
     public class RouletteView : MonoBehaviour
     {
         public delegate void SelectedRouletteItemEventHandler(SlotData slot);
+        public delegate RouletteSlot SelectedRulleteSlotEventHandler();
+
+
         public event SelectedRouletteItemEventHandler OnItemSelected;
+        public event SelectedRulleteSlotEventHandler OnSelectedSlot;
 
         /// <summary>
         /// property
@@ -19,6 +23,14 @@ namespace RouletteSystem
             get
             {
                 return _slots.Length;
+            }
+        }
+
+        public RouletteSlot[] Slots
+        {
+            get
+            {
+                return _slots;
             }
         }
 
@@ -80,14 +92,12 @@ namespace RouletteSystem
         }
 
 
-
-
         private void Spin()
         {
             if(_isSpinning)
                 return;
 
-            _selectSlot = GetRandomSlot();
+            _selectSlot = OnSelectedSlot();
             OnItemSelected?.Invoke(_selectSlot.SlotData);
 
             float angle = _angle * _selectSlot.SlotIndex;
@@ -127,44 +137,6 @@ namespace RouletteSystem
             }
         }
 
-
-        private RouletteSlot GetRandomSlot()
-        {
-            float[] slotWeights = new float[_slots.Length];
-
-            for (int i = 0; i < slotWeights.Length; i++)
-                slotWeights[i] = _slots[i].SlotData.Chance;
-
-            int randomWeight = Choose(slotWeights);
-
-            Debug.Log($"슬롯 인덱스 : {randomWeight} \n 슬롯 아이템 : {_slots[randomWeight].SlotData.ItemName}");
-            
-            return _slots[randomWeight];
-        }
-
-        private int Choose(float[] probs)
-        {
-            float total = 0;
-
-            foreach (float elem in probs)
-                total += elem;
-
-            float randomPoint = Random.value * total;
-
-            for (int i = 0; i < probs.Length; i++)
-            {
-                if (randomPoint < probs[i])
-                {
-                    return i;
-                }
-                else
-                {
-                    randomPoint -= probs[i];
-                }
-            }
-
-            return probs.Length - 1;
-        }
 
 
         [System.Serializable]
